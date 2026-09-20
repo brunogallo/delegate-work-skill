@@ -6,7 +6,12 @@ Keep the package short. Include only what materially helps the worker complete t
 
 ## ROUTE
 
-Record `gpt-5.6-luna` / `max` for implementation, corrections, verification and
+Choose Spark for tiny deterministic edits when available, including their narrow
+verification. Record the concrete available model/role; do not invent a Spark ID
+or effort. If Spark is unavailable or the task requires more than a fully specified
+mechanical change, use `gpt-5.6-luna` / `max`.
+
+Use Luna Max for other implementation, corrections, verification and
 implementation review. Astra and Sol are restricted to planning. Verify actual
 routing rather than assuming a role nickname guarantees a model. Use an available
 native worker role with these settings; do not invent a role or change model silently.
@@ -52,7 +57,7 @@ Ask for a concise handover containing:
 3. meaningful verification and result;
 4. any remaining risk, assumption or blocker.
 
-Luna inspects the diff and runs the checks. For semantic review with Jev,
+The selected worker inspects the diff and runs the checks. For semantic review with Jev,
 provide the relevant implementation excerpts and actual verification evidence,
 ask bounded questions against acceptance criteria, and verify any finding before
 requesting a correction. Record what changed because of the review, or that no
@@ -63,7 +68,9 @@ change was justified. Do not describe a summary-only consultation as code review
 If a worker fails, first decide whether the task was unclear or too broad.
 
 Quota, authentication and service errors are availability failures. Preserve work
-and report the blocker; do not switch implementation models automatically.
+and report the blocker. Spark may fall back to Luna Max; Luna must not fall back
+to Spark for work outside the tiny deterministic scope. No automatic fallback to
+Astra or Sol is permitted.
 
 For scope or architecture ambiguity, Astra or Sol may revise the plan and return a
 bounded package to Luna Max. They do not take over coding, tests or code review.
